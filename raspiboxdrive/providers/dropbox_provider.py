@@ -51,7 +51,7 @@ class DropboxProvider(CloudProvider):
                 logger.info("Dropbox authenticated from saved token")
                 return
             except Exception as exc:  # noqa: BLE001
-                logger.warning("Could not load Dropbox token: %s – re-authorising", exc)
+                logger.warning("Could not load Dropbox token: %s – re-authorizing", exc)
 
         # Interactive OAuth PKCE flow
         auth_flow = DropboxOAuth2FlowNoRedirect(

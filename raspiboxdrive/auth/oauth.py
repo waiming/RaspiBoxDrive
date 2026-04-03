@@ -72,10 +72,10 @@ class _OAuthCallbackHandler(BaseHTTPRequestHandler):
         params = parse_qs(parsed.query)
         if "code" in params:
             _OAuthCallbackHandler.code = params["code"][0]
-            msg = b"<html><body><h2>Authorisation successful. You may close this tab.</h2></body></html>"
+            msg = b"<html><body><h2>Authorization successful. You may close this tab.</h2></body></html>"
         else:
             _OAuthCallbackHandler.error = params.get("error", ["unknown"])[0]
-            msg = b"<html><body><h2>Authorisation failed. Check the terminal.</h2></body></html>"
+            msg = b"<html><body><h2>Authorization failed. Check the terminal.</h2></body></html>"
 
         self.send_response(200)
         self.send_header("Content-Type", "text/html")

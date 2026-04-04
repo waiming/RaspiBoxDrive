@@ -1,0 +1,37 @@
+[Unit]
+Description=RaspiBoxDrive – Google Drive / Dropbox sync daemon
+Documentation=https://github.com/waiming/RaspiBoxDrive
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%i
+Group=%i
+
+# Path to the installed entry-point (adjust if using a virtualenv)
+ExecStart=/usr/local/bin/raspibox-drive start
+
+# Restart on failure with exponential back-off
+Restart=on-failure
+RestartSec=10s
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# Allow writing to the home directory
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=raspiboxdrive
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=%h
+
+# Environment overrides (create /etc/raspiboxdrive.env for site config)
+EnvironmentFile=-%h/.raspiboxdrive/.env
+EnvironmentFile=-/etc/raspiboxdrive.env
+
+[Install]
+WantedBy=default.target
